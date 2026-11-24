@@ -1,6 +1,9 @@
 # 📓 SỔ TAY KIẾN THỨC BACKEND - PINGPULSE
 > *Tài liệu cô đọng để đọc lại mỗi ngày – Nắm chắc tư duy kiến trúc và bản chất công nghệ.*
 
+> 🏁 **PHASE 1 MILESTONE (CHẶNG 1): CORE BACKEND ARCHITECTURE & HIGH PERFORMANCE MASTERY**
+> *Status: Completed | 84 Automated Tests Passing (100%) | Production-Ready Backend Engine*
+
 ---
 
 ## 🧭 PHẦN 1: TƯ DUY LẬP TRÌNH & TYPESCRIPT NÂNG CAO
@@ -382,4 +385,18 @@ Khi lượng người dùng lên tới hàng trăm nghìn hoặc hàng triệu:
   2. Gọi hàm thuần khiết `decideIncident` (từ Tuần 4) để phán quyết mở/đóng sự cố.
   3. Gói gọn tạo check + cập nhật status + mở/đóng incident trong **PostgreSQL Transaction (`prisma.$transaction`)** đảm bảo tính toàn vẹn dữ liệu (ACID).
   4. Nếu monitor có trang Public Status Page (`slug`), tự động gọi `redis.del('status:' + slug)` để xóa dữ liệu cũ, giúp người xem Status Page luôn thấy trạng thái mới nhất ngay lập tức.
+
+---
+
+## 🏆 PHASE 1: CORE BACKEND MILESTONE SIGN-OFF
+> **Milestone Status:** ✅ **Completed**  
+> **Key Achievements:**
+> - Full decoupling between API ingestion and background network ping I/O via BullMQ Worker (`concurrency: 5`).
+> - Repeatable Job Schedulers synchronized with monitor lifecycle (CRUD) to eliminate ghost jobs.
+> - PostgreSQL Composite B-Tree indexing `(monitor_id, checked_at DESC)` and LATERAL JOIN query optimization on 500K+ records.
+> - Pure state transition machine (`decideIncident`) wrapped inside PostgreSQL ACID transactions.
+> - Redis Cache-Aside layer with active invalidation (Autocannon verified: 3,365 req/s, 17ms p99 latency).
+> - Atomic fixed-window rate limiter powered by Redis Lua script with fail-open fallback.
+> - 84 automated test cases across 17 test suites in Vitest with a 100% pass rate.
+
 
